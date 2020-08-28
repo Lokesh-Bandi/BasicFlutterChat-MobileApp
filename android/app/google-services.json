@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "568936422840",
+    "firebase_url": "https://spd-chat-d29ec.firebaseio.com",
+    "project_id": "spd-chat-d29ec",
+    "storage_bucket": "spd-chat-d29ec.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:568936422840:android:1944fc699672673d3dc34d",
+        "android_client_info": {
+          "package_name": "in.LokeshBandi.SPD_chat"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "568936422840-1iiinkasr3m5cipksjuctrp5emquqobk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBt6NslwsEYB43Y7XBfCKdiTdHmmGO-bx4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "568936422840-1iiinkasr3m5cipksjuctrp5emquqobk.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

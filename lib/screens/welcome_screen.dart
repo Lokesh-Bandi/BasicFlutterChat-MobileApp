@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+import 'package:animated_text_kit/animated_text_kit.dart';
 import 'login_screen.dart';
 import 'registration_screen.dart';
 
@@ -10,7 +10,7 @@ class WelcomeScreen extends StatefulWidget {
 
 class _WelcomeScreenState extends State<WelcomeScreen> with TickerProviderStateMixin {
   AnimationController logoController;
-  AnimationController titleController;
+  AnimationController bodyController;
   Animation animation;
   Animation loginAnimation;
   Animation registerAnimation;
@@ -23,29 +23,28 @@ class _WelcomeScreenState extends State<WelcomeScreen> with TickerProviderStateM
         seconds: 2,
       ),
     );
-    titleController = AnimationController(
+    bodyController = AnimationController(
       vsync: this, // the SingleTickerProviderStateMixin
       duration: Duration(
         seconds: 2,
       ),
-      upperBound: 45.0
     );
-    animation=ColorTween(begin: Colors.lightBlueAccent,end: Colors.white).animate(logoController);
-    loginAnimation=ColorTween(begin: Colors.white,end: Colors.lightBlueAccent).animate(logoController);
-    registerAnimation=ColorTween(begin: Colors.white,end: Colors.blueAccent).animate(logoController);
+
+    animation=ColorTween(begin: Colors.lightBlueAccent,end: Colors.white).animate(bodyController);
+    loginAnimation=ColorTween(begin: Colors.white,end: Colors.lightBlueAccent).animate(bodyController);
+    registerAnimation=ColorTween(begin: Colors.white,end: Colors.blueAccent).animate(bodyController);
     logoController.forward();
     logoController.addListener(() {
       setState(() {});
     });
-    titleController.forward();
-    titleController.addListener(() {
+    bodyController.forward();
+    bodyController.addListener(() {
       setState(() {});
-      print(animation.value);
     });
+
   }
   void dispose() {
     logoController.dispose();
-    titleController.dispose();
     super.dispose();
   }
   Widget build(BuildContext context) {
@@ -62,21 +61,34 @@ class _WelcomeScreenState extends State<WelcomeScreen> with TickerProviderStateM
                 Hero(
                   tag: 'logo',
                   child: Container(
-                    child: Image.asset('images/logo.png'),
-                    height: logoController.value*100,
+                    child: Image.asset('images/hummingbird_PNG66.png'),
+                    height: logoController.value*70,
                   ),
                 ),
                 Text(
-                  'SPD Chat',
+                  'SPD ',
                   style: TextStyle(
-                    fontSize: titleController.value,
-                    fontWeight: FontWeight.w900,
+                      fontSize: 45.0,
+                      fontWeight: FontWeight.w900,
+                      fontFamily: 'Lobster'
                   ),
+                ),
+                Expanded(
+                  child: ScaleAnimatedTextKit(
+                    text: ['Chat','Talk','Wave'],
+                    textStyle: TextStyle(
+                      fontSize: 35.0,
+                      fontWeight: FontWeight.w900,
+                      fontFamily: 'Lobster'
+                    ),
+                    textAlign: TextAlign.start,
+                    alignment: AlignmentDirectional.topStart
+                ),
                 ),
               ],
             ),
             SizedBox(
-              height: titleController.value,
+              height: 48.0,
             ),
             Padding(
               padding: EdgeInsets.symmetric(vertical: 16.0),
