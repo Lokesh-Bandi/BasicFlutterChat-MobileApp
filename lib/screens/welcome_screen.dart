@@ -8,11 +8,49 @@ class WelcomeScreen extends StatefulWidget {
   _WelcomeScreenState createState() => _WelcomeScreenState();
 }
 
-class _WelcomeScreenState extends State<WelcomeScreen> {
-  @override
+class _WelcomeScreenState extends State<WelcomeScreen> with TickerProviderStateMixin {
+  AnimationController logoController;
+  AnimationController titleController;
+  Animation animation;
+  Animation loginAnimation;
+  Animation registerAnimation;
+
+  void initState() {
+    super.initState();
+    logoController = AnimationController(
+      vsync: this, // the SingleTickerProviderStateMixin
+      duration: Duration(
+        seconds: 2,
+      ),
+    );
+    titleController = AnimationController(
+      vsync: this, // the SingleTickerProviderStateMixin
+      duration: Duration(
+        seconds: 2,
+      ),
+      upperBound: 45.0
+    );
+    animation=ColorTween(begin: Colors.lightBlueAccent,end: Colors.white).animate(logoController);
+    loginAnimation=ColorTween(begin: Colors.white,end: Colors.lightBlueAccent).animate(logoController);
+    registerAnimation=ColorTween(begin: Colors.white,end: Colors.blueAccent).animate(logoController);
+    logoController.forward();
+    logoController.addListener(() {
+      setState(() {});
+    });
+    titleController.forward();
+    titleController.addListener(() {
+      setState(() {});
+      print(animation.value);
+    });
+  }
+  void dispose() {
+    logoController.dispose();
+    titleController.dispose();
+    super.dispose();
+  }
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: animation.value,
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 24.0),
         child: Column(
@@ -25,26 +63,26 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                   tag: 'logo',
                   child: Container(
                     child: Image.asset('images/logo.png'),
-                    height: 60.0,
+                    height: logoController.value*100,
                   ),
                 ),
                 Text(
-                  'Flash Chat',
+                  'SPD Chat',
                   style: TextStyle(
-                    fontSize: 45.0,
+                    fontSize: titleController.value,
                     fontWeight: FontWeight.w900,
                   ),
                 ),
               ],
             ),
             SizedBox(
-              height: 48.0,
+              height: titleController.value,
             ),
             Padding(
               padding: EdgeInsets.symmetric(vertical: 16.0),
               child: Material(
                 elevation: 5.0,
-                color: Colors.lightBlueAccent,
+                color: loginAnimation.value,
                 borderRadius: BorderRadius.circular(30.0),
                 child: MaterialButton(
                   onPressed: () {
@@ -61,7 +99,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
             Padding(
               padding: EdgeInsets.symmetric(vertical: 16.0),
               child: Material(
-                color: Colors.blueAccent,
+                color: registerAnimation.value,
                 borderRadius: BorderRadius.circular(30.0),
                 elevation: 5.0,
                 child: MaterialButton(
