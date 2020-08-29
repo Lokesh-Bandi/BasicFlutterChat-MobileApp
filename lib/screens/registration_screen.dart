@@ -11,6 +11,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
   bool syncCall=false;
   String email;
   String password;
+
   final _auth= FirebaseAuth.instance;
   @override
   Widget build(BuildContext context) {
