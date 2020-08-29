@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flash_chat/constants.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:modal_progress_hud/modal_progress_hud.dart';
 class ChatScreen extends StatefulWidget {
   static String id= 'chat_screen';
   _ChatScreenState createState() => _ChatScreenState();
@@ -56,6 +57,32 @@ class _ChatScreenState extends State<ChatScreen> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
+            StreamBuilder<QuerySnapshot>(
+              stream: _fireStore.collection('messages').snapshots(),
+              builder: (context, snapshot){
+                if(!snapshot.hasData){
+                  return Center(
+                    child: CircularProgressIndicator(
+                      backgroundColor: Colors.lightBlueAccent,
+                    ),
+                  );
+                }
+                // ignore: deprecated_member_use
+                final messages =snapshot.data.documents;
+                List<Text> messageWidgets=[];
+                for(var message in messages){
+                  var text= message.data()['Text'];
+                  var messageSender=message.data()['Sender'];
+                  var messageWidget=Text(
+                    '$text from $messageSender'
+                  );
+                  messageWidgets.add(messageWidget);
+                }
+                return Column(
+                  children: messageWidgets,
+                );
+              },
+            ),
             Container(
               decoration: kMessageContainerDecoration,
               child: Row(
