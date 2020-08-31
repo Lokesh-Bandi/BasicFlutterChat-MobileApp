@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'chat_screen.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 class LoginScreen extends StatefulWidget {
   static String id= 'login_screen';
   _LoginScreenState createState() => _LoginScreenState();
@@ -24,11 +25,13 @@ class _LoginScreenState extends State<LoginScreen> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
-              Hero(
-                tag: 'logo',
-                child: Container(
-                  height: 160.0,
-                  child: Image.asset('images/hummingbird_PNG66.png'),
+              Flexible(
+                child: Hero(
+                  tag: 'logo',
+                  child: Container(
+                    height: 160.0,
+                    child: Image.asset('images/hummingbird_PNG66.png'),
+                  ),
                 ),
               ),
               SizedBox(
@@ -119,6 +122,8 @@ class _LoginScreenState extends State<LoginScreen> {
                         final newUser = await _auth.signInWithEmailAndPassword(
                             email: email, password: password);
                         if(newUser!=null){
+                            SharedPreferences prefs= await SharedPreferences.getInstance();
+                            prefs.setBool('alreadyVisited', true);
                           Navigator.pushNamed(context,ChatScreen.id);
                         }
                         setState(() {

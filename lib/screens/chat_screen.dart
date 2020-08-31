@@ -3,7 +3,8 @@ import 'package:flash_chat/constants.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:intl/intl.dart';
-final _fireStore= FirebaseFirestore.instance;
+import 'login_screen.dart';
+var _fireStore= FirebaseFirestore.instance;
 User user;
 var now;
 var currentTime;
@@ -48,7 +49,7 @@ class _ChatScreenState extends State<ChatScreen> {
               icon: Icon(Icons.close),
               onPressed: () {
                 _auth.signOut();
-                Navigator.pop(context);
+                Navigator.pushNamed(context,LoginScreen.id);
               }),
         ],
         title: Text(' Chat'),
