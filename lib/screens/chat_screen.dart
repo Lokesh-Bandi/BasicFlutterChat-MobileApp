@@ -3,6 +3,7 @@ import 'package:flash_chat/constants.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:intl/intl.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'login_screen.dart';
 var _fireStore= FirebaseFirestore.instance;
 User user;
@@ -47,8 +48,10 @@ class _ChatScreenState extends State<ChatScreen> {
         actions: <Widget>[
           IconButton(
               icon: Icon(Icons.close),
-              onPressed: () {
+              onPressed: () async{
                 _auth.signOut();
+                SharedPreferences prefs= await SharedPreferences.getInstance();
+                prefs.remove('alreadyVisited');
                 Navigator.pushNamed(context,LoginScreen.id);
               }),
         ],

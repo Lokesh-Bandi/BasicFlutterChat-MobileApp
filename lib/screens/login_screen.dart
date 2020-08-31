@@ -3,6 +3,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'chat_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
+import 'package:flash_chat/constants.dart';
 class LoginScreen extends StatefulWidget {
   static String id= 'login_screen';
   _LoginScreenState createState() => _LoginScreenState();
@@ -131,7 +133,29 @@ class _LoginScreenState extends State<LoginScreen> {
                         });
                       }
                       catch(e){
-                        print(e);
+                        Alert(
+                          context: context,
+                          style: alertStyle,
+                          type: AlertType.info,
+                          title: "Login Failed",
+                          desc: "Please enter the correct credentials",
+                          buttons: [
+                            DialogButton(
+                              child: Text(
+                                "Retry",
+                                style: TextStyle(color: Colors.white, fontSize: 20),
+                              ),
+                              onPressed: () {
+                                setState((){
+                                  syncCall=false;
+                                });
+                                Navigator.pop(context);
+                              },
+                              color: Color.fromRGBO(0, 179, 134, 1.0),
+                              radius: BorderRadius.circular(0.0),
+                            ),
+                          ],
+                        ).show();
                       }
                     },
                     minWidth: 200.0,
