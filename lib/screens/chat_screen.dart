@@ -229,8 +229,8 @@ class MessageBubble extends StatelessWidget {
                 builder: (context){
                 return AlertDialog(
                   title:Text("Do you want to delete?"),
-                  content: Image.network(
-                    'https://tenor.com/view/crying-emoji-gif-10800494.gif',
+                  content: Image.asset(
+                    'images/DeleteGif.gif',
                       height:60,
                       width: 60
                   ),
