@@ -20,6 +20,9 @@ dependencies:
   device_info: ^0.4.2+7
   shared_preferences: ^0.5.10
   rflutter_alert: ^1.0.3
+  firebase_storage: ^4.0.0
+  image_picker: ^0.6.7+7
+  font_awesome_flutter: ^8.8.1
 
 dev_dependencies:
   flutter_test:
